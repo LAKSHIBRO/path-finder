@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirate Pathfinder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header> 
+            <h1>🏴‍☠️ Pirate Pathfinder 🗺️</h1>
+            <div class="controls">
+                <select id="algorithm">
+                    <option value="astar">A* Algorithm</option>
+                    <option value="dijkstra">Dijkstra's Algorithm</option>
+                    <option value="greedy">Greedy Best-First Search</option>
+                    <option value="bfs">Breadth-First Search</option>
+                    <option value="dfs">Depth-First Search</option>
+                </select>
+                <input type="range" id="speed" min="1" max="100" value="50">
+                <label for="speed">Speed</label>
+                <button id="startBtn">Find Path</button>
+                <button id="resetBtn">Reset Map</button>
+            </div>
+            <div class="maze-controls">
+                <button id="randomMazeBtn">Random Maze</button>
+                <button id="recursiveMazeBtn">Recursive Maze</button>
+                <button id="clearObstaclesBtn">Clear Obstacles</button>
+            </div>
+            <div class="algorithm-info">
+                <p id="algorithmDescription"></p>
+            </div>
+            <div class="stats">
+                <span id="pathLength">Path Length: -</span>
+                <span id="visitedNodes">Nodes Visited: -</span>
+                <span id="executionTime">Time: -</span>
+            </div>
+        </header>
+        
+        <div class="grid-container">
+            <div id="grid"></div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="cell ship">⛵</div>
+                <span>Ship (Start)</span>
+            </div>
+            <div class="legend-item">
+                <div class="cell treasure">💎</div>
+                <span>Treasure (End)</span>
+            </div>
+            <div class="legend-item">
+                <div class="cell obstacle"></div>
+                <span>Obstacle</span>
+            </div>
+            <div class="legend-item">
+                <div class="cell path"></div>
+                <span>Path</span>
+            </div>
+            <div class="legend-item">
+                <div class="cell visited"></div>
+                <span>Visited</span>
+            </div>
+        </div>
+    </div>
+    <script src="pathfinding.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 

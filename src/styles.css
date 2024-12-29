@@ -1,0 +1,343 @@
+:root {
+    --primary: #2a4365;
+    --secondary: #4a5568;
+    --accent: #f6ad55;
+    --background: #f7fafc;
+    --water: #90cdf4;
+    --rock: #718096;
+    --path: #fbd38d;
+    --visited: #bee3f8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--background);
+    min-height: 100vh;
+    padding: 2rem;
+    color: var(--primary);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+button, select {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:hover, select:hover {
+    background: var(--secondary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:active, select:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+input[type="range"] {
+    width: 150px;
+    height: 6px;
+    background: var(--water);
+    border-radius: 3px;
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.grid-container {
+    position: relative;
+    margin: 2rem auto;
+    width: min(600px, 90vw);
+    height: min(600px, 90vw);
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    gap: 2px;
+    background: var(--water);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    touch-action: none;
+}
+
+.cell {
+    aspect-ratio: 1;
+    background: white;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.cell.obstacle {
+    background: var(--rock);
+    transform: scale(0.95);
+}
+
+.cell.visited {
+    background: var(--visited);
+    animation: visitReveal 0.3s ease;
+}
+
+.cell.path {
+    background: var(--path);
+    animation: pathReveal 0.3s ease;
+    z-index: 1;
+}
+
+.cell:hover {
+    transform: scale(1.1);
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cell.obstacle:hover {
+    transform: scale(1.05);
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--secondary);
+}
+
+.legend-item .cell {
+    width: 24px;
+    height: 24px;
+    cursor: default;
+}
+
+@keyframes pathReveal {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes visitReveal {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.algorithm-info {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: var(--background);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--secondary);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.algorithm-info p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.maze-controls {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stats {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: var(--background);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--secondary);
+    font-family: monospace;
+}
+
+.stats span {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: white;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Improve button states */
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Add animation for cell state changes */
+.cell {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cell.obstacle {
+    transform: scale(0.9);
+    background: var(--rock);
+}
+
+.cell.visited {
+    background: var(--visited);
+    animation: visitReveal 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cell.path {
+    background: var(--path);
+    animation: pathReveal 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+/* Improve hover states */
+.cell:hover:not(.obstacle):not(.path) {
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+}
+
+/* Add responsive design improvements */
+@media (max-width: 768px) {
+    .controls, .maze-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .legend {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    input[type="range"] {
+        width: 100%;
+    }
+}
+
+/* Improve animations */
+@keyframes visitReveal {
+    from {
+        transform: scale(0.8) rotate(-5deg);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pathReveal {
+    from {
+        transform: scale(0.9) rotate(5deg);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1.05) rotate(0);
+        opacity: 1;
+    }
+} 
